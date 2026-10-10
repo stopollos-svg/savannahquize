@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Savannah Setting Sun in safe zone -->
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M54,34a20,20 0 1,0 0.001,0 Z" />
+    <!-- Acacia Silhouette and Savannah horizon -->
+    <path
+        android:fillColor="#1A0C02"
+        android:pathData="M24,78 L84,78 C80,75 75,76 70,76 C65,75 58,74 54,75 C48,74 42,76 36,75 C30,76 26,77 24,78 Z" />
+    <!-- Stylized Fierce Predator Lion Silhouette centered in safe zone -->
+    <path
+        android:fillColor="#211005"
+        android:pathData="M54,38 C51,38 48,39 46,41 C43,39 40,39 37,42 C35,44 35,48 37,51 C35,53 34,56 35,59 C37,64 42,67 47,68 C49,70 51,71 54,71 C57,71 59,70 61,68 C66,67 71,64 73,59 C74,56 73,53 71,51 C73,48 73,44 71,42 C68,39 65,39 62,41 C60,39 57,38 54,38 Z" />
+    <!-- Lion Mane & Face Gold Highlights -->
+    <path
+        android:fillColor="#FFA000"
+        android:pathData="M54,43 C50,43 47,45 46,48 C48,49 50,50 54,50 C58,50 60,49 62,48 C61,45 58,43 54,43 Z" />
+    <path
+        android:fillColor="#FFF8E1"
+        android:pathData="M51,52 L54,55 L57,52 L54,50 Z" />
+    <!-- Glowing predator eyes -->
+    <path
+        android:fillColor="#FFE082"
+        android:pathData="M48,47a1.5,1.5 0 1,0 0.001,0 Z" />
+    <path
+        android:fillColor="#FFE082"
+        android:pathData="M60,47a1.5,1.5 0 1,0 0.001,0 Z" />
+    <!-- Fierce Fangs / Snout -->
+    <path
+        android:fillColor="#FFF8E1"
+        android:pathData="M52,58 L54,56 L56,58 L55,62 L53,62 Z" />
+</vector>

@@ -1,0 +1,6 @@
+{
+  "name": "Savannah Quiz",
+  "description": "Enthusiastic wildlife expert quiz on the deadliest animals of the African Savannah with 20 questions, countdown timer, audio feedback, and ranks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
