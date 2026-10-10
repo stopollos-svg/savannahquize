@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Scariest Animals of the Savannah Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app-container">
+    <!-- Top Global App Bar -->
+    <header class="top-nav">
+      <div class="nav-left">
+        <span class="nav-brand-icon">🦁</span>
+        <div class="nav-brand-text">
+          <span class="nav-title">Savannah Quiz</span>
+          <span class="nav-subtitle">African Wildlife Expedition</span>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button id="audio-toggle-btn" class="icon-btn" aria-label="Toggle sound" title="Toggle Sound">
+          <span id="audio-icon">🔊</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Screen 1: Intro / Rules Screen -->
+    <section id="intro-screen" class="screen active">
+      <div class="savannah-hero-banner">
+        <canvas id="hero-canvas" width="600" height="200"></canvas>
+        <div class="hero-overlay">
+          <div class="hero-badge">AFRICAN WILDLIFE EXPEDITION</div>
+          <h1 class="hero-title">Scariest Animals<br>of the Savannah</h1>
+          <p class="hero-tagline">Test your instincts against Africa's 20 deadliest beasts</p>
+        </div>
+      </div>
+
+      <div class="screen-content">
+        <!-- Ranger Kofi Welcome Card -->
+        <div class="expert-card">
+          <div class="expert-avatar" id="expert-avatar-intro">🤠🧭</div>
+          <div class="expert-details">
+            <div class="expert-header">
+              <span class="expert-name">Ranger Kofi</span>
+              <span class="expert-tag">• Safari Wildlife Specialist</span>
+            </div>
+            <p class="expert-speech">
+              "Jambo, explorer! Welcome to the heart of the African bush! I'll be your guide as you face 20 lethal encounters—from massive river behemoths to lightning-fast serpents. Keep your wits sharp and watch the countdown clock!"
+            </p>
+          </div>
+        </div>
+
+        <!-- Rules Card -->
+        <div class="card rules-card">
+          <h2 class="card-title">📜 Expedition Rules & Scoring</h2>
+          <ul class="rules-list">
+            <li>
+              <span class="rule-icon">🎯</span>
+              <div>
+                <strong>One Question at a Time:</strong>
+                <p>Face 20 unique challenges. Ponder your options and lock in your choice.</p>
+              </div>
+            </li>
+            <li>
+              <span class="rule-icon">💎</span>
+              <div>
+                <strong>Strict 5-Point Scoring:</strong>
+                <p>Earn exactly 5 points for each correct answer (100 points maximum). No partial credit!</p>
+              </div>
+            </li>
+            <li>
+              <span class="rule-icon">💡</span>
+              <div>
+                <strong>Fascinating Facts & Feedback:</strong>
+                <p>After each answer, discover verified wildlife biology facts and field insights.</p>
+              </div>
+            </li>
+            <li>
+              <span class="rule-icon">⏱️</span>
+              <div>
+                <strong>Survival Countdown Timer:</strong>
+                <p>Answer before the timer runs out, or the creature slips into the bush!</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Ranks Card -->
+        <div class="card ranks-card">
+          <h2 class="card-title">🏆 Expedition Ranks to Earn</h2>
+          <div class="ranks-grid">
+            <div class="rank-item">
+              <span class="rank-emoji">🏕️</span>
+              <span class="rank-name">Tourist</span>
+              <span class="rank-score">0 – 30%</span>
+            </div>
+            <div class="rank-item">
+              <span class="rank-emoji">🧭</span>
+              <span class="rank-name">Ranger Trainee</span>
+              <span class="rank-score">31 – 70%</span>
+            </div>
+            <div class="rank-item">
+              <span class="rank-emoji">🦁</span>
+              <span class="rank-name">Apex Predator</span>
+              <span class="rank-score">71 – 100%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings: Timer Duration -->
+        <div class="card settings-card">
+          <h2 class="card-title">⚙️ Expedition Settings</h2>
+          <label class="setting-label">Timer per question:</label>
+          <div class="timer-chips" id="timer-chips">
+            <button class="chip" data-timer="15">15s Blitz</button>
+            <button class="chip active" data-timer="25">25s Standard</button>
+            <button class="chip" data-timer="40">40s Relaxed</button>
+            <button class="chip" data-timer="0">Untimed</button>
+          </div>
+        </div>
+
+        <!-- Primary Start Button -->
+        <button id="start-btn" class="primary-btn glow-btn">
+          <span>Begin Savannah Expedition</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Screen 2: Active Question Screen -->
+    <section id="quiz-screen" class="screen">
+      <!-- Quiz Status Header -->
+      <div class="quiz-header">
+        <div class="quiz-header-top">
+          <div class="question-tracker">
+            <span class="q-label">Question</span>
+            <span class="q-current" id="q-number-display">1</span>
+            <span class="q-total">/ 20</span>
+          </div>
+
+          <!-- Countdown Timer -->
+          <div id="timer-pill" class="timer-pill">
+            <div class="timer-spinner">
+              <svg viewBox="0 0 36 36" class="circular-chart">
+                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <path id="timer-circle-progress" class="circle" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              </svg>
+            </div>
+            <span id="timer-text" class="timer-text">25s</span>
+          </div>
+
+          <!-- Score Tally -->
+          <div class="score-pill">
+            <span class="score-label">Score:</span>
+            <span id="score-counter" class="score-val">0</span>
+            <span class="score-max">/ 100</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+          <div id="quiz-progress-bar" class="progress-bar-fill" style="width: 5%;"></div>
+        </div>
+      </div>
+
+      <div class="screen-content">
+        <!-- Animal Subject Visual Badge Card -->
+        <div class="animal-badge-card" id="animal-badge-card">
+          <div class="animal-avatar" id="animal-avatar-box">🦛</div>
+          <div class="animal-info">
+            <h3 class="animal-name" id="animal-name-text">Hippopotamus</h3>
+            <span class="animal-latin" id="animal-latin-text">Hippopotamus amphibius</span>
+            <div class="animal-tags">
+              <span class="tag danger-tag" id="animal-danger-tag">⚠️ Territorial Behemoth</span>
+              <span class="tag habitat-tag" id="animal-category-tag">River Giants</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Question Prompt Card -->
+        <div class="card question-card">
+          <p id="question-text" class="question-text">
+            Which Savannah animal is considered the most deadly to humans, killing more people annually than lions or elephants?
+          </p>
+        </div>
+
+        <!-- Multiple Choice Options (A, B, C, D) -->
+        <div class="options-container" id="options-container">
+          <!-- Dynamically generated buttons -->
+        </div>
+
+        <!-- Post-Answer Feedback Card (Hidden until answer chosen) -->
+        <div id="feedback-card" class="feedback-card hidden">
+          <div class="feedback-status-bar" id="feedback-status-bar">
+            <span class="feedback-icon" id="feedback-icon">✓</span>
+            <div class="feedback-text-group">
+              <h4 id="feedback-title" class="feedback-title">CORRECT! +5 POINTS</h4>
+              <p id="feedback-subtitle" class="feedback-subtitle">Spot on, intrepid explorer!</p>
+            </div>
+            <div class="feedback-score-badge">
+              <span>Score:</span>
+              <strong id="feedback-score-val">5</strong>
+              <span>/ 100</span>
+            </div>
+          </div>
+
+          <!-- Answer Reveal (if incorrect or time up) -->
+          <div id="correct-reveal-box" class="correct-reveal-box hidden">
+            <span class="reveal-label">Correct Answer:</span>
+            <strong id="reveal-text" class="reveal-text">Hippopotamus</strong>
+          </div>
+
+          <!-- Fascinating Animal Fact -->
+          <div class="fact-box">
+            <div class="fact-header">
+              <span class="fact-icon">💡</span>
+              <strong class="fact-title" id="fact-animal-title">Fascinating Fact (Hippopotamus)</strong>
+            </div>
+            <p id="fact-content" class="fact-content">
+              Hippos are fiercely territorial and can sprint up to 30 km/h (19 mph) on land. Their massive canine tusks can grow up to 50 cm with a crushing 2,000 psi bite!
+            </p>
+          </div>
+
+          <!-- Ranger Kofi Expert Reaction -->
+          <div class="expert-reaction-box">
+            <div class="expert-reaction-avatar" id="expert-reaction-avatar">🤠🎉</div>
+            <div class="expert-reaction-content">
+              <strong class="expert-reaction-title">Ranger Kofi's Safari Note:</strong>
+              <p id="expert-reaction-text" class="expert-reaction-text">
+                "Territorial titans! Don't let their rotund appearance fool you; a hippo can slice a wooden canoe cleanly in half!"
+              </p>
+            </div>
+          </div>
+
+          <!-- Next Question Button -->
+          <button id="next-question-btn" class="primary-btn feedback-next-btn">
+            <span id="next-btn-label">Next Question</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen 3: Results & Field Guide Screen -->
+    <section id="result-screen" class="screen">
+      <div class="savannah-hero-banner mini">
+        <canvas id="result-canvas" width="600" height="140"></canvas>
+        <div class="hero-overlay">
+          <div class="hero-badge">EXPEDITION COMPLETED</div>
+          <h2 class="hero-title mini">Official Wildlife Debrief</h2>
+        </div>
+      </div>
+
+      <div class="screen-content">
+        <!-- Main Score & Rank Card -->
+        <div class="card result-hero-card">
+          <!-- Circular Gauge -->
+          <div class="result-gauge-wrap">
+            <svg viewBox="0 0 36 36" class="result-circular-chart">
+              <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <path id="result-circle-progress" class="circle" stroke-dasharray="85, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            </svg>
+            <div class="result-gauge-text">
+              <span id="result-percentage-text" class="result-pct">85%</span>
+              <span id="result-score-detail" class="result-pts">85 / 100 pts</span>
+            </div>
+          </div>
+
+          <!-- Earned Rank Badge -->
+          <div class="earned-rank-card" id="earned-rank-card">
+            <span id="rank-badge-emoji" class="rank-large-emoji">🦁</span>
+            <div class="rank-meta">
+              <span class="rank-overhead">EXPEDITION RANK EARNED</span>
+              <h3 id="rank-title-text" class="rank-title">Apex Predator</h3>
+              <p id="rank-subtitle-text" class="rank-subtitle">Master of the Savannah!</p>
+            </div>
+          </div>
+
+          <p id="rank-description-text" class="rank-description">
+            Magnificent! You possess legendary wildlife wisdom. You outsmarted the deadliest snakes, crocodiles, and megafauna. The entire savannah bows to your knowledge!
+          </p>
+
+          <!-- Quick Stats Row -->
+          <div class="stats-row">
+            <div class="stat-cell">
+              <strong id="stat-correct-count">17 / 20</strong>
+              <span>Correct</span>
+            </div>
+            <div class="stat-cell">
+              <strong id="stat-accuracy-pct">85%</strong>
+              <span>Accuracy</span>
+            </div>
+            <div class="stat-cell">
+              <strong id="stat-points-earned">85</strong>
+              <span>Total Points</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ranger Kofi Final Graduation Note -->
+        <div class="expert-card">
+          <div class="expert-avatar" id="expert-avatar-result">🤠🎓</div>
+          <div class="expert-details">
+            <div class="expert-header">
+              <span class="expert-name">Ranger Kofi</span>
+              <span class="expert-tag">• Chief Safari Guide</span>
+            </div>
+            <p class="expert-speech" id="expert-result-speech">
+              "Outstanding bushcraft, explorer! You identified the dangerous habits of Africa's deadliest creatures with master precision. You're ready to lead an expedition across the Serengeti!"
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons-grid">
+          <button id="retake-btn" class="primary-btn">
+            <span>🔄 Retake Expedition</span>
+          </button>
+          <button id="back-camp-btn" class="secondary-btn">
+            <span>⛺ Return to Camp</span>
+          </button>
+        </div>
+
+        <!-- Field Guide Review (All 20 Questions) -->
+        <div class="field-guide-header">
+          <h3>📖 Safari Field Guide Review (20 Questions)</h3>
+          <p>Review the full dossier, your choices, and animal facts.</p>
+          <div class="review-filter-chips">
+            <button class="filter-chip active" data-filter="all">All (20)</button>
+            <button class="filter-chip" data-filter="correct">Correct (<span id="filter-correct-num">0</span>)</button>
+            <button class="filter-chip" data-filter="missed">Missed (<span id="filter-missed-num">0</span>)</button>
+          </div>
+        </div>
+
+        <div id="field-guide-list" class="field-guide-list">
+          <!-- Dynamically populated review cards -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
